@@ -5,20 +5,21 @@
   <plugin>
 
     <name value="b2.name" />
-    <handle value="template" />
+    <handle value="wvn-earlywarning" />
     <description value="b2.description" />
     <default-locale value="en_US" />
-
-    <version value="1.0" />
+    
+    <webapp-type value="javaext" />
+    <version value="0.5.2" />
     <requires>
-      <bbversion value="9.1.120123.0" />
+      <bbversion value="3000.1.0-rel.52" />
     </requires>
 
     <vendor>
-      <id value="mnmt" />
-      <name value="Monument University" />
-      <url value="http://www.monument.edu/" />
-      <description value="Monument University" />
+      <id value="wvn" />
+      <name value="WVNET" />
+      <url value="http://wvnet.edu/" />
+      <description value="West Virginia Network for Educational Telco" />
     </vendor>
 
 
@@ -47,6 +48,34 @@
       </application>
     </application-defs>
     -->
+  	<application-defs>
+		<!-- This tool appears on the sysadmin tab -->
+		<application handle="wvn_ews_system" name="WVNET Early Warning System" is-sys-tool="true">
+			<description lang="en_US">System Admin tool for WVNET EWS</description>
+			<links>
+				<link>
+					<type value="system_tool"/>
+					<name value="WVNET Early Warning System"/>
+					<url value="app/courseDisplay"/>
+					<description value="System Admin tool for WVNET EWS"/>
+					<entitlement-uid value="wvn.earlywarning.all.VIEW"/>
+				</link>
+			</links>
+		</application>
+		<!-- This tool can be added to My Blackboard -->
+		<application handle="wvn_ews_user" name="WVNET Early Warning System"
+			type="shared" can-allow-guest="false" small-icon="" large-icon="">
+			<description lang="en_US">Instructor tool for viewing WVNET EWS</description>
+			<links>
+				<link>
+					<type value="user_tool"/>
+					<name value="WVNET Early Warning System"/>
+					<url value="app/courseDisplay"/>
+					<description value="Instructor tool for viewing WVNET EWS"/>
+				</link>
+			</links>
+		</application>
+	</application-defs>
 
     <!-- Portal Module Definitions -->
     <!--
@@ -127,7 +156,7 @@
     <!-- Code permissions required for proper operation -->
     <permissions>
       <permission type="attribute" name="user.authinfo" actions="get"/>
-      <permission type="attribute" name="user.personalinfo" actions="get,set"/>
+      <permission type="attribute" name="user.personalinfo" actions="get"/>
       
       <!-- We need these permissions to allow Spring to auto-discover -->
       <!-- and wire beans together and Hibernate to interact with objects. -->
@@ -138,6 +167,13 @@
       <permission type="java.lang.RuntimePermission" name="setContextClassLoader" />
       <permission type="java.io.FilePermission" name="${java.home}/lib/*" actions="read" />
       -->
+      <permission type="runtime" name="accessClassInPackage.*" />
+      <permission type="runtime" name="accessDeclaredMembers" />
+      <permission type="runtime" name="db.connection.*" />
+      <permission type="runtime" name="getClassLoader" />
+      <permission type="runtime" name="getProtectionDomain" />
+      <permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" />
+		
     </permissions>
 
   </plugin>
