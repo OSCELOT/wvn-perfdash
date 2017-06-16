@@ -5,7 +5,7 @@
   <plugin>
 
     <name value="b2.name" />
-    <handle value="wvn-earlywarning" />
+    <handle value="earlywarning" />
     <description value="b2.description" />
     <default-locale value="en_US" />
     
