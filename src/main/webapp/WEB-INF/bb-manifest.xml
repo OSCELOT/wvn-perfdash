@@ -10,7 +10,7 @@
     <default-locale value="en_US" />
     
     <webapp-type value="javaext" />
-    <version value="0.5.2" />
+    <version value="@version@" />
     <requires>
       <bbversion value="3000.1.0-rel.52" />
     </requires>
