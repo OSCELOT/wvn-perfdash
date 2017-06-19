@@ -32,17 +32,17 @@ public class CheckAccess extends HttpServlet {
 		// check if user has access i.e. they are an instructor or admin
 		String query = "select 1 from dual where exists (select 1 from users where pk1 = ? and system_role='Z') or exists (select 1 from course_users where users_pk1 = ? and role = 'P')";
 		Connection conn = null;
-		String userHasAccess = null;
+		char userHasAccess = '0';
 		try {
 			conn = ConnectionManager.getDefaultConnection();
 			PreparedStatement pStatement = conn.prepareStatement(query, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 			pStatement.setString(1, pk1);
 			pStatement.setString(2, pk1);
-			ResultSet result = pStatement.executeQuery(query);
-			if(result.next()) userHasAccess = "1";
-			else userHasAccess = "0";
+			ResultSet result = pStatement.executeQuery();
+			if(result.next()) userHasAccess = '1';
 		} catch (Exception e) {
-			request.setAttribute("access", 0);
+			// on any error, deny access
+			// userHasAccess is already 0, so nothing to do here
 		} finally {
 		    if(conn != null) {
 		        ConnectionManager.releaseDefaultConnection(conn);

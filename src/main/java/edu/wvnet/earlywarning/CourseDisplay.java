@@ -75,7 +75,7 @@ public class CourseDisplay extends HttpServlet {
 		try {
 			conn = ConnectionManager.getDefaultConnection();
 			PreparedStatement pStatement = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			result = pStatement.executeQuery(query);
+			result = pStatement.executeQuery();
 			
 			if (!result.isBeforeFirst() ) {    
 				return "No gradebook data was found for any courses you are associated with."; 
