@@ -5,5 +5,26 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
   <display-name>Early Warning System</display-name>
+  <description>Analyzes courses to identify students in crisis</description>
+  
+  <servlet>
+  	<servlet-name>CourseDisplayServlet</servlet-name>
+  	<servlet-class>edu.wvnet.earlywarning.CourseDisplay</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>CourseDisplayServlet</servlet-name>
+  	<url-pattern>/courseDisplay</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>AccessServlet</servlet-name>
+  	<servlet-class>edu.wvnet.earlywarning.CheckAccess</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>AccessServlet</servlet-name>
+  	<url-pattern>/checkAccess</url-pattern>
+  </servlet-mapping>
 
 </web-app>

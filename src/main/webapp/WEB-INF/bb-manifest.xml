@@ -56,7 +56,7 @@
 				<link>
 					<type value="system_tool"/>
 					<name value="WVNET Early Warning System"/>
-					<url value="app/courseDisplay"/>
+					<url value="courseDisplay"/>
 					<description value="System Admin tool for WVNET EWS"/>
 					<entitlement-uid value="wvn.earlywarning.all.VIEW"/>
 				</link>
@@ -70,7 +70,7 @@
 				<link>
 					<type value="user_tool"/>
 					<name value="WVNET Early Warning System"/>
-					<url value="app/courseDisplay"/>
+					<url value="courseDisplay"/>
 					<description value="Instructor tool for viewing WVNET EWS"/>
 				</link>
 			</links>

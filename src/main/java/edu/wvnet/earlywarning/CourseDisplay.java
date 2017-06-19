@@ -1,9 +1,15 @@
 package edu.wvnet.earlywarning;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import blackboard.db.ConnectionManager;
@@ -12,21 +18,36 @@ import blackboard.platform.session.BbSession;
 import blackboard.platform.session.BbSessionManagerService;
 import blackboard.platform.session.BbSessionManagerServiceFactory;
 
-public class CourseDisplay {
+public class CourseDisplay extends HttpServlet {
 
-	public String getPage( HttpServletRequest request, HttpServletResponse response ) {
+	private static final long serialVersionUID = 1L;
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		// make sure user is logged in
 		BbSessionManagerService sessman = BbSessionManagerServiceFactory.getInstance();
 		BbSession sess = sessman.getSession(request);
-		if(!sess.isAuthenticated()) return "error";
+		if(!sess.isAuthenticated()) throw new ServletException("user not authenticated");
+		
+		// get the user pk1
 		String pk1 = sess.getUserId().toExternalString().split("_")[1];
+		
+		// if we're exporting, output the file
 		if(request.getParameter("export") != null) {
-			request.setAttribute("exportdata", exportEWSTable(pk1));
-		} else {
-			String pageHelp = "Use <b>Ctrl+f</b> to find a course within the list. Use <b>Ctrl+p</b> to print.";
-			request.setAttribute("pageHelp", pageHelp);
-			request.setAttribute("ewstable", buildEWSTable(pk1));
+			response.setContentType("text/csv");
+			response.setHeader("Content-Disposition", "inline; filename=ews.csv");
+			PrintWriter writer = response.getWriter();
+			writer.write(exportEWSTable(pk1));
+			writer.flush();
+			writer.close();
 		}
-		return "courseDisplay";
+		
+		// otherwise forward to the jsp to output the page
+		String pageHelp = "Use <b>Ctrl+f</b> to find a course within the list. Use <b>Ctrl+p</b> to print.";
+		request.setAttribute("pageHelp", pageHelp);
+		request.setAttribute("ewstable", buildEWSTable(pk1));
+		RequestDispatcher requetsDispatcherObj = request.getRequestDispatcher("/courseDisplay.jsp");
+		requetsDispatcherObj.forward(request, response);
 	}
 	
 	private String buildEWSTable(String pk1) {

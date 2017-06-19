@@ -2,19 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
-<%@ page import="java.io.PrintWriter" %>
-
-<%
-if(request.getParameter("export") != null) {
-	response.setContentType("text/csv");
-	response.setHeader("Content-Disposition", "inline; filename=ews.csv");
-	PrintWriter writer = response.getWriter();
-	writer.write(request.getAttribute("exportdata").toString());
-	writer.flush();
-	writer.close();
-	return;
-}
-%>
 
 <bbNG:genericPage>
 	<bbNG:pageHeader instructions="${pageHelp}">
