@@ -151,6 +151,15 @@
                    template="course.blog.grade.EXECUTE" />
     </entitlements>
     -->
+    
+    <extension-defs>
+    	<definition namespace="edu.wvnet">
+    		<extension id="EWSRenderingHook"
+    				   point="blackboard.platform.RenderingHook"
+    				   class="edu.wvnet.earlywarning.EWSRenderingHook"
+    				   singleton="true" />
+    	</definition>
+    </extension-defs>
 
     <!-- Code permissions required for proper operation -->
     <permissions>
