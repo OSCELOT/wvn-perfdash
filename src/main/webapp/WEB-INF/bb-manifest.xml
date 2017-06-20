@@ -154,8 +154,8 @@
     
     <extension-defs>
     	<definition namespace="edu.wvnet">
-    		<extension id="EWSRenderingHook"
-    				   point="blackboard.platform.RenderingHook"
+    		<extension id="earlywarningRenderingHook"
+    				   point="blackboard.platform.renderingHook"
     				   class="edu.wvnet.earlywarning.EWSRenderingHook"
     				   singleton="true" />
     	</definition>
@@ -165,23 +165,16 @@
     <permissions>
       <permission type="attribute" name="user.authinfo" actions="get"/>
       <permission type="attribute" name="user.personalinfo" actions="get"/>
-      
-      <!-- We need these permissions to allow Spring to auto-discover -->
-      <!-- and wire beans together and Hibernate to interact with objects. -->
-      <!--
-      <permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" />
-      <permission type="java.lang.RuntimePermission" name="accessDeclaredMembers" />
-      <permission type="java.lang.RuntimePermission" name="createClassLoader" />
-      <permission type="java.lang.RuntimePermission" name="setContextClassLoader" />
-      <permission type="java.io.FilePermission" name="${java.home}/lib/*" actions="read" />
-      -->
+
       <permission type="runtime" name="accessClassInPackage.*" />
       <permission type="runtime" name="accessDeclaredMembers" />
       <permission type="runtime" name="db.connection.*" />
       <permission type="runtime" name="getClassLoader" />
       <permission type="runtime" name="getProtectionDomain" />
       <permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" />
-		
+      
+      <permission type="java.lang.RuntimePermission" name="createClassLoader" />
+      <permission type="java.lang.RuntimePermission" name="injectRenderingHook" />
     </permissions>
 
   </plugin>
