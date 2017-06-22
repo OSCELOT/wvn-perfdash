@@ -1,5 +1,6 @@
 package edu.wvnet.earlywarning;
 
+import blackboard.platform.plugin.PlugInUtil;
 import blackboard.servlet.renderinghook.RenderingHook;
 
 public class TopFrameRenderingHook implements RenderingHook {
@@ -10,9 +11,11 @@ public class TopFrameRenderingHook implements RenderingHook {
 	}
 	
 	@Override
-	public String getContent() {
-		//return "<script type='text/javascript' src='/webapps/wvn-earlywarning-BBTSTLRN/renderinghook.js'></script>";
-		return "hey hey here is my hook lol";
+	public String getContent() {		
+		return "<!-- Hide WVNET Early Warning System from users without access -->\n" +
+		       "<script type='text/javascript' src='"
+				+ PlugInUtil.getUriStem("wvn", "earlywarning")
+				+ "hide-link.js'></script>";
 	}
 
 }
