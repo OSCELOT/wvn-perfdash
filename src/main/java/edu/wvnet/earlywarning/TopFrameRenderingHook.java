@@ -12,9 +12,7 @@ public class TopFrameRenderingHook implements RenderingHook {
 	
 	@Override
 	public String getContent() {
-		// in order to minimize the amount of multi-line string work I have to do
-		// instead I'm using this convoluted solution with tons of back and fourth
-		// don't judge me
+		// We have to define checkEWSAccess here, because there's no way to get the URI stem via javascript
 		return "<!-- Hide WVNET Early Warning System from users without access -->\n"
 		        + "<script type='text/javascript'>\n"
 		        + "function checkEWSAccess(callback) {\n"
