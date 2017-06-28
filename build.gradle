@@ -9,7 +9,7 @@ apply plugin: "idea"
 
 // define the version for the project when publishing to maven
 group "edu.wvnet"
-version "0.5.6"
+version "1.0"
 
 // this replaces the @version@ variable in bb-manifest.xml
 // so we only have to update version in one place
