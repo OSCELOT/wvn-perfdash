@@ -71,6 +71,7 @@ public class CourseDisplay extends HttpServlet {
 		float class_max_possible = 0;
 		float class_average = 0;
 		String prevclass = "";
+		String prevpk1 = "";
 		String output = "";
 		try {
 			conn = ConnectionManager.getDefaultConnection();
@@ -90,7 +91,7 @@ public class CourseDisplay extends HttpServlet {
 						// footer of table
 						class_average = class_sum_score / class_max_possible * 100;
 						output += "\n</table>";
-						output += "\n<a class='classlink' href='/webapps/blackboard/execute/launcher?type=Course&id=_" + result.getString("PK1") + "_1' target='_blank'>Visit course</a>";
+						output += "\n<a class='classlink' href='/webapps/blackboard/execute/launcher?type=Course&id=_" + prevpk1 + "_1' target='_blank'>Visit course</a>";
 						output += "\n</div>";
 						output += "\n<h2 class='classaverage' style='color: " + percentToColor(class_average) + "'>" + String.format("%d", Math.round(class_average)) + "%</h2>";						
 						output += "\n</div>";
@@ -100,6 +101,7 @@ public class CourseDisplay extends HttpServlet {
 					}
 					// header row of table
 					prevclass = result.getString("COURSE_ID");
+					prevpk1 = result.getString("PK1");
 					output += "<div class='accordion'><h2 class='classheader'><a class='headerlink' href='#'><div class='expando expando-plus'><span class='sechead'>" + result.getString("COURSE_ID") + "<span class='coursename'>&nbsp;: " + result.getString("COURSE_NAME") + "</span></span></div></a></h2><div>";
 					output += "\n<table class='classtable' id=" + result.getString("COURSE_ID") + ">";
 					output += "\n  <tr>";
