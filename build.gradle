@@ -11,10 +11,11 @@ apply plugin: "idea"
 group "edu.wvnet"
 version "1.0"
 
-// this replaces the @version@ variable in bb-manifest.xml
-// so we only have to update version in one place
 import org.apache.tools.ant.filters.ReplaceTokens
 war {
+  archiveName = "wvn-perfdash-${version}.war"
+  // this replaces the @version@ variable in bb-manifest.xml
+  // so we only have to update version in one place
   filter(ReplaceTokens, tokens: [version: version])
 }
 
