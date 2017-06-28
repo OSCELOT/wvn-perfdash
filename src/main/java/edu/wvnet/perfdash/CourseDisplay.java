@@ -55,7 +55,7 @@ public class CourseDisplay extends HttpServlet {
 		ResultSet result = null;
 		Connection conn = null;
 		
-		if(!isAdmin(pk1)) {
+		//if(!isAdmin(pk1)) {
 			String courses;
 			try {
 				courses = getAccessibleCourses(pk1);
@@ -65,7 +65,7 @@ public class CourseDisplay extends HttpServlet {
 			if(courses.isEmpty())
 				return "Access denied. Sorry, but this tool is only for use by instructors.";
 			query += " where course_id in (" + courses + ")";
-		}
+		//}
 		
 		float class_sum_score = 0;
 		float class_max_possible = 0;
@@ -155,7 +155,7 @@ public class CourseDisplay extends HttpServlet {
 		ResultSet result = null;
 		Connection conn = null;
 		
-		if(!isAdmin(pk1)) {
+		//if(!isAdmin(pk1)) {
 			String courses;
 			try {
 				courses = getAccessibleCourses(pk1);
@@ -165,7 +165,7 @@ public class CourseDisplay extends HttpServlet {
 			if(courses.isEmpty())
 				return "Access denied. Sorry, but this tool is only for use by instructors.";
 			query += " where course_id in (" + courses + ")";
-		}
+		//}
 	
 		String output = "";
 		try {
