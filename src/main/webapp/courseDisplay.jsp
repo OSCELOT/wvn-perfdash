@@ -85,7 +85,7 @@
 				position: absolute;
 				top: 4px;
 				right: 0.5%;
-				text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+				text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
 				font-size: 190%;
 			}
 			a.classlink {
