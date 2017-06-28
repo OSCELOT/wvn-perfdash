@@ -177,7 +177,7 @@ public class CourseDisplay extends HttpServlet {
 				return "No gradebook data was found for any courses you are associated with."; 
 			}
 
-			output = "course_id,course_name,lastname,firstname,user_id,last_access_date,sum_score,sum_possible,max_possible\r\n";
+			output = "course_id,course_name,lastname,firstname,user_id,last_access_date,sum_score,sum_possible,max_possible,personal_percent,peer_percent\r\n";
 			while(result.next()) {
 				output += result.getString("COURSE_ID") + ",";
 				output += result.getFloat("PEER_PERCENT") + ",";
@@ -192,6 +192,9 @@ public class CourseDisplay extends HttpServlet {
 				} catch (Exception e) {
 					output += "ERROR:" + e.toString() + e.getMessage() + ",";
 				}
+				output += result.getString("SUM_SCORE") + ",";
+				output += result.getString("SUM_POSSIBLE") + ",";
+				output += result.getString("MAX_POSSIBLE") + ",";
 				output += result.getString("PERSONAL_PERCENT") + "%,";
 				output += result.getString("PEER_PERCENT") + "%\r\n";
 			}
