@@ -16,7 +16,7 @@ public class TopFrameRenderingHook implements RenderingHook {
 		return "<!-- Hide WVNET Student Performance Dashboard from users without access -->\n"
 		        + "<script type='text/javascript'>\n"
 		        + "function checkSPDAccess(callback) {\n"
-		        + "  new Ajax.Request('" + PlugInUtil.getUriStem("wvn", "earlywarning") + "checkAccess', {\n"
+		        + "  new Ajax.Request('" + PlugInUtil.getUriStem("wvn", "perfdash") + "checkAccess', {\n"
 		        + "    method: 'get', onSuccess: function(transport) { callback(transport) }"
 		        + "  });"
 				+ "}\n"
