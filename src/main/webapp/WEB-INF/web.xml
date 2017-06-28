@@ -9,7 +9,7 @@
   
   <servlet>
   	<servlet-name>CourseDisplayServlet</servlet-name>
-  	<servlet-class>edu.wvnet.earlywarning.CourseDisplay</servlet-class>
+  	<servlet-class>edu.wvnet.perfdash.CourseDisplay</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -19,7 +19,7 @@
   
   <servlet>
   	<servlet-name>AccessServlet</servlet-name>
-  	<servlet-class>edu.wvnet.earlywarning.CheckAccess</servlet-class>
+  	<servlet-class>edu.wvnet.perfdash.CheckAccess</servlet-class>
   </servlet>
   
   <servlet-mapping>

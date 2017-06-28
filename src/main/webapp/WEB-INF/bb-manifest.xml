@@ -5,7 +5,7 @@
   <plugin>
 
     <name value="b2.name" />
-    <handle value="earlywarning" />
+    <handle value="perfdash" />
     <version value="@version@" />
     <description value="b2.description" />
     <webapp-type value="javaext" />
@@ -34,37 +34,38 @@
 
   	<application-defs>
 		<!-- This tool appears on the sysadmin tab -->
-		<application handle="wvn_ews_system" name="WVNET Early Warning System" is-sys-tool="true">
-			<description lang="en_US">System Admin tool for WVNET EWS</description>
+		<application handle="wvn_spd_system" name="WVNET Student Performance Dashboard"
+			is-sys-tool="true">
+			<description lang="en_US">System Admin tool for WVNET SPD</description>
 			<links>
 				<link>
 					<type value="system_tool"/>
-					<name value="WVNET Early Warning System"/>
+					<name value="WVNET Student Performance Dashboard"/>
 					<url value="courseDisplay"/>
-					<description value="System Admin tool for WVNET EWS"/>
+					<description value="System Admin tool for WVNET SPD"/>
 				</link>
 			</links>
 		</application>
 		<!-- This tool can be added to My Blackboard -->
-		<application handle="wvn_ews_user" name="WVNET Early Warning System"
+		<application handle="wvn_spd_user" name="WVNET Student Performance Dashboard"
 			type="shared" can-allow-guest="false" small-icon="" large-icon="">
-			<description lang="en_US">Instructor tool for viewing WVNET EWS</description>
+			<description lang="en_US">Instructor tool for viewing WVNET SPD</description>
 			<links>
 				<link>
 					<type value="user_tool"/>
-					<name value="WVNET Early Warning System"/>
+					<name value="WVNET Student Performance Dashboard"/>
 					<url value="courseDisplay"/>
-					<description value="Instructor tool for viewing WVNET EWS"/>
+					<description value="Instructor tool for viewing WVNET SPD"/>
 				</link>
 			</links>
 		</application>
 	</application-defs>
     
     <extension-defs>
-    	<definition namespace="edu.wvnet.earlywarning">
+    	<definition namespace="edu.wvnet.perfdash">
     		<extension id="earlywarningTopFrameRenderingHook"
     				   point="blackboard.platform.renderingHook"
-    				   class="edu.wvnet.earlywarning.TopFrameRenderingHook"
+    				   class="edu.wvnet.perfdash.TopFrameRenderingHook"
     				   singleton="true" />
     	</definition>
     </extension-defs>

@@ -1,4 +1,4 @@
-package edu.wvnet.earlywarning;
+package edu.wvnet.perfdash;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,9 +35,9 @@ public class CourseDisplay extends HttpServlet {
 		// if we're exporting, output the file
 		if(request.getParameter("export") != null) {
 			response.setContentType("text/csv");
-			response.setHeader("Content-Disposition", "inline; filename=ews.csv");
+			response.setHeader("Content-Disposition", "inline; filename=spd.csv");
 			PrintWriter writer = response.getWriter();
-			writer.write(exportEWSTable(pk1));
+			writer.write(exportSPDTable(pk1));
 			writer.flush();
 			writer.close();
 		}
@@ -45,12 +45,12 @@ public class CourseDisplay extends HttpServlet {
 		// otherwise forward to the jsp to output the page
 		String pageHelp = "Use <b>Ctrl+f</b> to find a course within the list. Use <b>Ctrl+p</b> to print.";
 		request.setAttribute("pageHelp", pageHelp);
-		request.setAttribute("ewstable", buildEWSTable(pk1));
+		request.setAttribute("spdtable", buildSPDTable(pk1));
 		RequestDispatcher requetsDispatcherObj = request.getRequestDispatcher("/courseDisplay.jsp");
 		requetsDispatcherObj.forward(request, response);
 	}
 	
-	private String buildEWSTable(String pk1) {
+	private String buildSPDTable(String pk1) {
 		String query = "select pk1, course_id, course_name, lastname, firstname, user_id, last_access_date,        sum_score, sum_possible, max_possible,        nvl(trunc(sum_score / sum_possible, 2)*100, 0) personal_percent,        nvl(trunc(sum_score / max_possible, 2)*100, 0) peer_percent from (   with scores as (     select course_main.pk1 , course_id , course_name , lastname , firstname , user_id , last_access_date ,            sum(nvl(decode(NULL,        manual_grade, NULL,        manual_score, NULL,        manual_score), (select score from attempt where attempt.pk1 = highest_attempt_pk1))) sum_score,            sum(gradebook_main.possible) sum_possible     from gradebook_grade     join gradebook_main on gradebook_main_pk1 = gradebook_main.pk1 and possible > 0     join course_users on course_users_pk1 = course_users.pk1     join course_main on gradebook_main.crsmain_pk1 = course_main.pk1     join users on users_pk1 = users.pk1     where       course_users.available_ind = 'Y' and       possible > 0 and (course_main.available_ind = 'Y' or (course_main.honor_term_avail_ind = 'Y' and (select available_ind from term where term.pk1 = (select term_pk1 from course_term where course_term.crsmain_pk1 = course_main.pk1)) = 'Y' )) and course_main.row_status = 0     group by course_main.pk1 , course_id , course_name , lastname , firstname , user_id , last_access_date     order by course_id , lastname , firstname , user_id , last_access_date   )   select pk1, course_id, course_name, lastname, firstname, user_id, last_access_date, sum_score, sum_possible,     (select max(sum_possible) from scores b where b.course_id = a.course_id group by course_id) max_possible   from scores a )";
 		ResultSet result = null;
 		Connection conn = null;
@@ -147,7 +147,7 @@ public class CourseDisplay extends HttpServlet {
 		return output;
 	}
 	
-	private String exportEWSTable(String pk1) {
+	private String exportSPDTable(String pk1) {
 		// output as csv instead of html
 		String query = "select course_id, course_name, lastname, firstname, user_id, last_access_date,        sum_score, sum_possible, max_possible,        nvl(trunc(sum_score / sum_possible, 2)*100, 0) personal_percent,        nvl(trunc(sum_score / max_possible, 2)*100, 0) peer_percent from (   with scores as (     select course_id , course_name , lastname , firstname , user_id , last_access_date ,            sum(nvl(manual_score, (select score from attempt where attempt.pk1 = highest_attempt_pk1))) sum_score,            sum(gradebook_main.possible) sum_possible     from gradebook_grade     join gradebook_main on gradebook_main_pk1 = gradebook_main.pk1 and possible > 0     join course_users on course_users_pk1 = course_users.pk1     join course_main on gradebook_main.crsmain_pk1 = course_main.pk1     join users on users_pk1 = users.pk1     where       course_users.available_ind = 'Y' and       possible > 0 and (course_main.available_ind = 'Y' or (course_main.honor_term_avail_ind = 'Y' and (select available_ind from term where term.pk1 = (select term_pk1 from course_term where course_term.crsmain_pk1 = course_main.pk1)) = 'Y' )) and course_main.row_status = 0     group by course_id , course_name , lastname , firstname , user_id , last_access_date     order by course_id , lastname , firstname , user_id , last_access_date   )   select course_id, course_name, lastname, firstname, user_id, last_access_date, sum_score, sum_possible,     (select max(sum_possible) from scores b where b.course_id = a.course_id group by course_id) max_possible   from scores a )";
 		ResultSet result = null;

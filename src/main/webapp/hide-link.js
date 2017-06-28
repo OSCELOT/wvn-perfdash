@@ -1,4 +1,4 @@
-function hideEWSLink() {
+function hideSPDLink() {
 	var modules = document.getElementsByClassName("moduleTitle");
 	for (var i = 0; i < modules.length; i++) if(modules[i].innerHTML == "Tools") var tools = modules[i];
 	if(tools) {
@@ -11,9 +11,9 @@ function hideEWSLink() {
 
 Event.observe(document,"dom:loaded", function() {
 	if(document.getElementsByClassName('active')[0].innerHTML.includes('My Blackboard')) {
-		checkEWSAccess(function(obj) {
+		checkSPDAccess(function(obj) {
 			if(obj.responseText == "0") {
-			    hideEWSLink();
+			    hideSPDLink();
 			}
 		});
 	}

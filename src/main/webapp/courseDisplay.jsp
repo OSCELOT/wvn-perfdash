@@ -5,7 +5,7 @@
 
 <bbNG:genericPage>
 	<bbNG:pageHeader instructions="${pageHelp}">
-		<bbNG:pageTitleBar title="WVNET Early Warning System"/>
+		<bbNG:pageTitleBar title="WVNET Student Performance Dashboard"/>
 		<bbNG:cssFile href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
 		<bbNG:jsFile href="//code.jquery.com/jquery-1.11.2.js" />
 		<bbNG:jsFile href="//code.jquery.com/ui/1.11.2/jquery-ui.js" />
@@ -156,8 +156,7 @@
 		<bbNG:actionButton title="Collapse All" url="javascript:collapseAll();"/>
 	</bbNG:actionControlBar>
 
-<!-- <p>Your pk1 is ${passdata}</p> -->
-${ewstable}
+${spdtable}
 
 <bbNG:okButton/>
 
