@@ -4,7 +4,7 @@ function hideSPDLink() {
 	if(tools) {
 		tools = tools.parentElement.parentElement.getElementsByClassName("portletList");
 		tools[0].childElements().forEach(
-			function (item) { if(item.innerHTML.includes("wvn-earlywarning")) item.remove() }
+			function (item) { if(item.innerHTML.includes("wvn-perfdash")) item.remove() }
 		)
 	}
 }
