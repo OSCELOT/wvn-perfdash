@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
 
-<bbNG:genericPage>
-	<bbNG:pageHeader instructions="${pageHelp}">
+<bbNG:learningSystemPage standalone="${standalone}">
+	<bbNG:pageHeader instructions="${pageHelp}" helpKey="dash">
 		<bbNG:pageTitleBar title="WVNET Student Performance Dashboard"/>
 		<bbNG:cssFile href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
 		<bbNG:jsFile href="//code.jquery.com/jquery-1.11.2.js" />
@@ -160,4 +160,4 @@ ${spdtable}
 
 <bbNG:okButton/>
 
-</bbNG:genericPage>
+</bbNG:learningSystemPage>

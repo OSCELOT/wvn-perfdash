@@ -40,12 +40,15 @@ public class CourseDisplay extends HttpServlet {
 			writer.write(exportSPDTable(pk1));
 			writer.flush();
 			writer.close();
+			return;
 		}
-		
 		// otherwise forward to the jsp to output the page
+		
 		String pageHelp = "Use <b>Ctrl+f</b> to find a course within the list. Use <b>Ctrl+p</b> to print.";
 		request.setAttribute("pageHelp", pageHelp);
 		request.setAttribute("spdtable", buildSPDTable(pk1));
+		if(request.getParameter("standalone") != null) request.setAttribute("standalone", "true");
+		else request.setAttribute("standalone", "false");
 		RequestDispatcher requetsDispatcherObj = request.getRequestDispatcher("/courseDisplay.jsp");
 		requetsDispatcherObj.forward(request, response);
 	}
