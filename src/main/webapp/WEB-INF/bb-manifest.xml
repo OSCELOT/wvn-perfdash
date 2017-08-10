@@ -60,6 +60,25 @@
 			</links>
 		</application>
 	</application-defs>
+	
+	<module-defs>
+		<module-type ext-ref="perfdash-module" title="Student Performance Dashboard" uicreatable="true">
+			<jsp-dir>module</jsp-dir>
+			<jsp>
+				<view>preview.jsp</view>
+			</jsp>
+		</module-type>
+		<module type="perfdash-module" isadmin="false" useraddable="true" isdeletable="true" isdetachable="true"
+				title="Student Performance Dashboard">
+			<description></description>
+			<module-groups>
+				<module-group id="Faculty and Staff Resources" />
+			</module-groups>
+			<ExtraInfo>
+				<property key="body.text" type="String">This panel was installed as part of the WVNET Student Performance Dashboard.</property>
+			</ExtraInfo>
+		</module>
+	</module-defs>
     
     <extension-defs>
     	<definition namespace="edu.wvnet.perfdash">
