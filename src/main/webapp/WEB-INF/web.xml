@@ -18,6 +18,16 @@
   </servlet-mapping>
   
   <servlet>
+  	<servlet-name>PreviewServlet</servlet-name>
+  	<servlet-class>edu.wvnet.perfdash.Preview</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>PreviewServlet</servlet-name>
+  	<url-pattern>/preview</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
   	<servlet-name>AccessServlet</servlet-name>
   	<servlet-class>edu.wvnet.perfdash.CheckAccess</servlet-class>
   </servlet>

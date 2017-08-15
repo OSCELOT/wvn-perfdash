@@ -63,9 +63,9 @@
 	
 	<module-defs>
 		<module-type ext-ref="perfdash-module" title="Student Performance Dashboard" uicreatable="true">
-			<jsp-dir>module</jsp-dir>
+		    <jsp-dir>/</jsp-dir>
 			<jsp>
-				<view>preview.jsp</view>
+				<view>preview</view>
 			</jsp>
 		</module-type>
 		<module type="perfdash-module" isadmin="false" useraddable="true" isdeletable="true" isdetachable="true"

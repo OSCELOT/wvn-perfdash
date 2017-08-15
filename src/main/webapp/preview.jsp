@@ -5,6 +5,6 @@
 
 <bbNG:includedPage ctxId="ctx">
 
-<p>Test module SPD</p>
+${totals}
 
 </bbNG:includedPage>
