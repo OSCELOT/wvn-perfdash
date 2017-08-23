@@ -1,15 +1,17 @@
-basic-b2-template
+Student Performance Dashboard
 =================
 
-This project provides the framework for starting a new Building Block (B2) project for Blackboard Learn.  Fork this project and make changes as necessary for your project.
+This building block adds a page that gives a real-time top-level view of student performance across all accessible classes. Accessibility is based on two things: (1) classes you are teaching, and (2) classes you have Course Administrator access to via the Institutional Hierarchy. If you don't fit either of those categories (i.e. you are a student) access is denied.
 
-How To Use This Project
+The building block exposes a Tool that can be added to the Tools module on the My Blackboard page after it is installed. A rendering hook hides this link from anyone who wouldn't have access to it. It also adds a link to the Tools and Utilies section of the Sysadmin tab.
+
+How to develop for this project
 ====
 
 Clone this repository into a directory: 
-`git clone https://github.com/blackboard/basic-b2-template.git -o template <project name>`
+`git clone https://github.com/OSCELOT/wvn-perfdash.git -o upstream <project name>`
 
-Note that the clone command has assigned the `template` remote identifier to keep it separated from your real origin remote.
+Note that the clone command has assigned the `upstream` remote identifier to keep it separated from your real origin remote.
 
 Next, add an origin remote for your own git repository: 
 `git remote add origin <URL to your git repo>`
@@ -19,4 +21,4 @@ Add your code and push to your origin remote:
 
 Deploying Your B2
 ===
-To deploy your B2 for testing, run `gradlew deployB2`.
+To deploy your B2 for testing, run `gradlew deployB2`. For auto-deploy to work you will need to update the ext {} section of build.gradle, and install the Starting Block from Blackboard to your instance. This Starting Block is a grave security risk because it exposes hooks that allow anyone who knows about it to install arbitrary code on your instance. You have been warned.
