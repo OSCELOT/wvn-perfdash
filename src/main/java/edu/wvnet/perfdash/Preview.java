@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,26 +33,30 @@ public class Preview extends HttpServlet {
 		
 		// get the user pk1
 		String pk1 = sess.getUserId().toExternalString().split("_")[1];
-				
-		request.setAttribute("totals", getTotals(pk1));
+
+		try {
+			request.setAttribute("totals", getTotals(pk1));
+		} catch (SQLException e) {
+			request.setAttribute("error", e.getMessage());
+		}
 		RequestDispatcher requetsDispatcherObj = request.getRequestDispatcher("/preview.jsp");
 		requetsDispatcherObj.forward(request, response);
 	}
 	
-	private String getTotals(String pk1) {
+	private Map<String, Integer> getTotals(String pk1) throws SQLException {
 		String query = "select color, sum(users) from (SELECT course_id,       1 users,       case        when nvl(trunc(sum_score / max_possible, 2)*100, 0) >= 70 then 'G'        when nvl(trunc(sum_score / max_possible, 2)*100, 0) >= 50 then 'Y'        else 'R'       end color FROM  (WITH scores AS     (SELECT course_id,             user_id,             sum(nvl(manual_score,                       (SELECT score                        FROM attempt                        WHERE attempt.pk1 = highest_attempt_pk1))) sum_score,             sum(gradebook_main.possible) sum_possible      FROM gradebook_grade      JOIN gradebook_main ON gradebook_main_pk1 = gradebook_main.pk1      AND possible > 0      JOIN course_users ON course_users_pk1 = course_users.pk1      JOIN course_main ON gradebook_main.crsmain_pk1 = course_main.pk1      JOIN users ON users_pk1 = users.pk1      WHERE course_users.available_ind = 'Y'        AND possible > 0        AND (course_main.available_ind = 'Y'             OR (course_main.honor_term_avail_ind = 'Y'                 AND                   (SELECT available_ind                    FROM term                    WHERE term.pk1 =                        (SELECT term_pk1                         FROM course_term                         WHERE course_term.crsmain_pk1 = course_main.pk1)) = 'Y'))        AND course_main.row_status = 0      GROUP BY course_id,               user_id      ORDER BY course_id,               user_id) SELECT course_id,                               user_id,                               sum_score,                               sum_possible,     (SELECT max(sum_possible)      FROM scores b      WHERE b.course_id = a.course_id      GROUP BY course_id) max_possible   FROM scores a) ";
 		ResultSet result = null;
 		Connection conn = null;
-		String output = "";
+		Map<String, Integer> output = new HashMap<String, Integer>();
 		
 		String courses;
 		try {
 			courses = getAccessibleCourses(pk1);
 		} catch (SQLException e) {
-			return "ERROR CHECKING ACCESS: " + e.getErrorCode() + " : " + e.getMessage();
+			throw new SQLException("ERROR CHECKING ACCESS: " + e.getErrorCode() + " : " + e.getMessage());
 		}
 		if(courses.isEmpty())
-			return "Access denied. Sorry, but this tool is only for use by instructors.";
+			throw new SQLException("Access denied. Sorry, but this tool is only for use by instructors.");
 		query += " where course_id in (" + courses + ")) group by color   ";
 		
 		try {
@@ -59,23 +65,20 @@ public class Preview extends HttpServlet {
 			result = pStatement.executeQuery();
 			
 			if (!result.isBeforeFirst() ) {    
-				return "No gradebook data was found for any courses you are associated with."; 
+				throw new SQLException("No gradebook data was found for any courses you are associated with."); 
 			}
 			
 			while(result.next()) {
 				switch(result.getString("color")) {
-				case "R": output += "<div id='spdreds'>" + result.getString(2) + "</div>"; break;
-				case "Y": output += "<div id='spdyellows'>" + result.getString(2) + "</div>"; break;
-				case "G": output += "<div id='spdgreens'>" + result.getString(2) + "</div>"; break;
+				case "G": output.put("green", result.getInt(2)); break;
+				case "Y": output.put("yellow", result.getInt(2)); break;
+				case "R": output.put("red", result.getInt(2)); break;
 				}
 			}
 		} catch (SQLException e) {
-			output += "ERROR RETREIVING OUTPUT";
-			output += "\nError code: " + e.getErrorCode();
-			output += "\nMessage: " + e.getMessage();
+			throw new SQLException("ERROR RETREIVING OUTPUT\nError code: " + e.getErrorCode() + "\nMessage: " + e.getMessage());
 		} catch (ConnectionNotAvailableException e) {
-		    output += "COULD NOT GET CONNETION";
-			output += "\nMessage: " + e.getMessage();
+			throw new SQLException("COULD NOT GET CONNETION " + e.getMessage());
 		} finally {
 		    if(conn != null) {
 		        ConnectionManager.releaseDefaultConnection(conn);
