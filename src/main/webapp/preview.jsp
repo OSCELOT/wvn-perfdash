@@ -7,37 +7,31 @@
 	<bbNG:cssBlock>
 		<style type="text/css">
 			div.spd {
+				background-color: beige;
 				text-align: center;
 				position: relative;
-				padding-bottom: 30px;
 			}
-			label.spdgreen {
-				position: absolute;
-				top: 0px;
-				left: 30%;
-			}
-			label.spdyellow {
-				position: absolute;
-				top: 0px;
+			.spd label {
 				display: inline-block;
-				margin: 0 auto;
+				width: 100px;
 			}
-			label.spdred {
-				position: absolute;
-				top: 0px;
-				right: 30%;
+			img.spdbulb { /*Light Bulb by Ben from the Noun Project 3654*/
+				width: 40px;
+				height: 40px;
+				margin-top: 2px;
 			}
-			//Light Bulb by Blake Thompson from the Noun Project
-			.spdgreen img {
-				// nothing
+			.spd span {
+				font-weight: bold;
 			}
 		</style>
 	</bbNG:cssBlock>
 
 	<div class='spd'>
-		<label class='spdgreen'><img src="noun_9573_cc.svg"/><br/><span class='spdgreen'>${totals['green']}</span></label>
-		<label class='spdyellow'><img src="noun_9573_cc.svg"/><br/><span class='spdyellow'>${totals['yellow']}</span></label>
-		<label class='spdred'><img src="noun_9573_cc.svg"/><br/><span class='spdred'>${totals['red']}</span></label>
+		<a href="${pageContext.request.contextPath}/courseDisplay">
+			<label class='spdgreen'><img class="spdbulb" src="${pageContext.request.contextPath}/images/light_green.svg"/><br/><span class='spdgreen'>${totals['green']}</span></label>
+			<label class='spdyellow'><img class="spdbulb" src="${pageContext.request.contextPath}/images/light_yellow.svg"/><br/><span class='spdyellow'>${totals['yellow']}</span></label>
+			<label class='spdred'><img class="spdbulb" src="${pageContext.request.contextPath}/images/light_red.svg"/><br/><span class='spdred'>${totals['red']}</span></label>
+		</a>
 	</div>
 
 </bbNG:includedPage>

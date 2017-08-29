@@ -19,6 +19,7 @@ import blackboard.db.ConnectionNotAvailableException;
 import blackboard.platform.session.BbSession;
 import blackboard.platform.session.BbSessionManagerService;
 import blackboard.platform.session.BbSessionManagerServiceFactory;
+import blackboard.platform.plugin.PlugInUtil;
 
 public class Preview extends HttpServlet {
 
@@ -39,6 +40,7 @@ public class Preview extends HttpServlet {
 		} catch (SQLException e) {
 			request.setAttribute("error", e.getMessage());
 		}
+		//request.setAttribute("stem", PlugInUtil.getUriStem("wvn", "perfdash"));
 		RequestDispatcher requetsDispatcherObj = request.getRequestDispatcher("/preview.jsp");
 		requetsDispatcherObj.forward(request, response);
 	}
