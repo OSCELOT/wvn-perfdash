@@ -50,6 +50,9 @@ public class Preview extends HttpServlet {
 		ResultSet result = null;
 		Connection conn = null;
 		Map<String, Integer> output = new HashMap<String, Integer>();
+		output.put("green",  0);
+		output.put("yellow", 0);
+		output.put("red",    0);
 		
 		String courses;
 		try {
